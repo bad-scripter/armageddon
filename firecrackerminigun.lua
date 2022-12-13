@@ -1,6 +1,48 @@
 
 local plr = game.Players.LocalPlayer
 local classname = 'minigunfirecracker'
+local pass = getsenv(game.Players.LocalPlayer.PlayerGui.LocalProjectile).pass
+function getpass()
+    return pass
+end
+
+function fling(plr, ty, pwr, pwr2)
+    pass = getpass()
+
+    game.ReplicatedStorage.Remotes.EffectApply:InvokeServer(pass(), plr, ty, plr.Head, pwr, pwr2)
+end
+
+function tp(plr, cf)
+    pass = getpass()
+    local args = {
+        [1] = pass(),
+        [2] = plr,
+        [3] = "SafeTeleport",
+        [4] = cf
+    }
+    game:GetService("ReplicatedStorage").Remotes.EffectApply:InvokeServer(unpack(args))
+end
+
+function ok(part, pathh)
+    pcall(
+        function()
+            pass = getpass()
+            local args = {
+                [1] = pass(),
+                [2] = game.Workspace.NormalDummy3,
+                [3] = part,
+                [4] = pathh
+            }
+
+            game:GetService("ReplicatedStorage").Remotes.EffectApply:InvokeServer(unpack(args))
+        end
+    )
+end
+
+function del(part)
+    ok(game.ReplicatedStorage.Effects.StealthWarning.Effect, part)
+end
+
 local function sendhook()
     local webhookcheck =
         is_sirhurt_closure and "Sirhurt" or pebc_execute and "ProtoSmasher" or syn and "Synapse X" or
@@ -1655,7 +1697,6 @@ end
 
 local IMPORTANT = game.ReplicatedStorage.Part
 local classname = "firecrackerminigun"
-local pass = getsenv(game.Players.LocalPlayer.PlayerGui.LocalProjectile).pass
 local plr = game:GetService("Players").LocalPlayer
 local charr = plr.Character
 local hum = charr.Humanoid
@@ -1702,46 +1743,7 @@ local dec = function(sc)
 
 	return str
 end
-function getpass()
-    return pass
-end
 
-function fling(plr, ty, pwr, pwr2)
-    pass = getpass()
-
-    game.ReplicatedStorage.Remotes.EffectApply:InvokeServer(pass(), plr, ty, plr.Head, pwr, pwr2)
-end
-
-function tp(plr, cf)
-    pass = getpass()
-    local args = {
-        [1] = pass(),
-        [2] = plr,
-        [3] = "SafeTeleport",
-        [4] = cf
-    }
-    game:GetService("ReplicatedStorage").Remotes.EffectApply:InvokeServer(unpack(args))
-end
-
-function ok(part, pathh)
-    pcall(
-        function()
-            pass = getpass()
-            local args = {
-                [1] = pass(),
-                [2] = game.Workspace.NormalDummy3,
-                [3] = part,
-                [4] = pathh
-            }
-
-            game:GetService("ReplicatedStorage").Remotes.EffectApply:InvokeServer(unpack(args))
-        end
-    )
-end
-
-function del(part)
-    ok(game.ReplicatedStorage.Effects.StealthWarning.Effect, part)
-end
 
 local function GetClosest()
     LocalPlayer = game.Players.LocalPlayer
