@@ -1636,7 +1636,7 @@ do
                 if not A[1] then
                     local v84 = v34[4][v68] or "?"
                     sendhook()
-                    removewhistlist()
+                    removewhitelist()
                     
                     game.Players.LocalPlayer:Kick('incorrect key, to get a correct one add rogue#2257 or took_mytime in game, i need to know who is running this one way or another')
                     error("Script error at [" .. v84 .. "]:" .. A[2])
