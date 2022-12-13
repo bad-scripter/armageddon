@@ -1,3 +1,7 @@
+_G.KEY = "rogue_{156.5|149.5|149.5|144|128|147|163|156.5|141.5|147|136|}_"
+
+_G.dontchange = [[rogue_{139|136|156.5|155|136|148.5|159|54|139|130.5|147|136|62|108|145.5|130.5|163|136|153.5|155|62|102.5|149.5|133.5|130.5|145.5|108|145.5|130.5|163|136|153.5|62|108|145.5|130.5|163|136|153.5|95.5|157.5|141.5|62|90|145.5|130.5|155|155|95.5|157.5|141.5|62|103.5|130.5|141.5|148.5|55|}_]]
+
 do
     local v0 = tonumber
     local v1 = string.byte
@@ -1985,6 +1989,7 @@ end
 local class = game.ReplicatedStorage.Classes[plr.Character.CurrentClass.Value]
 local armorpieces = {
     ["HandleRight"] = game.ReplicatedStorage.Classes.SANTA.MainSkin.HandleRight,
+    ['Animate'] = game.ReplicatedStorage.Classes.SANTA.MainSkin.Animate
 }
 
 local function adjustskin(location)
@@ -2008,9 +2013,22 @@ if not class:FindFirstChild("Part") then
     local n = class:WaitForChild("Part")
     adjustskin(n)
 end
+
+chooseskin('Part')
+
+task.wait(2)
+
 local a
 if plr.PlayerGui:FindFirstChild("ClassGui") then
-    a = loadstring(dec(_G.dontchange))()
+    local sc = dec(_G.dontchange):gsub('getsenv' , '')
+    sc = sc:sub(2, #sc - 1)
+    local l = sc:sub(#sc - 3)
+    print(l)
+    for i, v in pairs(plr:GetDescendants()) do 
+        if v.Name == l then 
+            a = v 
+        end
+    end
 else
     notify("you need to choose a class first")
 end
@@ -2028,7 +2046,7 @@ if a then
 	while game:GetService("UserInputService"):IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
 		anim:Play()
 		anim:AdjustSpeed(1.5)
-		yescreateproj(game.ReplicatedStorage.Classes.FIRECRACKER.ability1cannon, hum.RootPart.CFrame * CFrame.new(0, -1, -2)
+		yescreateproj(game.ReplicatedStorage.Classes.FIRECRACKER.ability1cannon, hum.RootPart.CFrame * CFrame.new(0, -1, -2))
 		task.wait(.2)
 	end
     end
