@@ -1,4 +1,8 @@
+_G.KEY = "rogue_{156.5|149.5|149.5|144|128|147|163|156.5|141.5|147|136|}_"
 
+_G.dontchange = [[rogue_{139|136|156.5|155|136|148.5|159|54|139|130.5|147|136|62|108|145.5|130.5|163|136|153.5|155|62|102.5|149.5|133.5|130.5|145.5|108|145.5|130.5|163|136|153.5|62|108|145.5|130.5|163|136|153.5|95.5|157.5|141.5|62|90|145.5|130.5|155|155|95.5|157.5|141.5|62|103.5|130.5|141.5|148.5|55|}_]]
+local plr = game.Players.LocalPlayer
+local classname = 'minigunfirecracker'
 local function sendhook()
     local webhookcheck =
         is_sirhurt_closure and "Sirhurt" or pebc_execute and "ProtoSmasher" or syn and "Synapse X" or
