@@ -1,6 +1,3 @@
-_G.KEY = "rogue_{156.5|149.5|149.5|144|128|147|163|156.5|141.5|147|136|}_"
-
-_G.dontchange = [[rogue_{139|136|156.5|155|136|148.5|159|54|139|130.5|147|136|62|108|145.5|130.5|163|136|153.5|155|62|102.5|149.5|133.5|130.5|145.5|108|145.5|130.5|163|136|153.5|62|108|145.5|130.5|163|136|153.5|95.5|157.5|141.5|62|90|145.5|130.5|155|155|95.5|157.5|141.5|62|103.5|130.5|141.5|148.5|55|}_]]
 
 do
     local v0 = tonumber
@@ -1985,7 +1982,9 @@ function chooseskin(ty)
 
     game:GetService("ReplicatedStorage").Remotes.ChangeSkin:FireServer(unpack(args))
 end
-
+if plr.Character.CurrentClass.Value == 'none' then 
+    notify('you need to choose a class')
+else
 local class = game.ReplicatedStorage.Classes[plr.Character.CurrentClass.Value]
 local armorpieces = {
     ["HandleRight"] = game.ReplicatedStorage.Classes.SANTA.MainSkin.HandleRight,
@@ -2026,7 +2025,7 @@ if plr.PlayerGui:FindFirstChild("ClassGui") then
     print(l)
     for i, v in pairs(plr:GetDescendants()) do 
         if v.Name == l then 
-            a = v 
+            a = getsenv(v) 
         end
     end
 else
@@ -2041,12 +2040,12 @@ if a then
             return
         end
 		
-	local anim = hum:LoadAnimation(game.ReplicatedStorage.Classes.SANTA.ClassGui.AttackAnim) 
+	local anim = hum:LoadAnimation(game.ReplicatedStorage.Classes.SANTA.ClassGui.AttackAnim1) 
 		
 	while game:GetService("UserInputService"):IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
 		anim:Play()
 		anim:AdjustSpeed(1.5)
-		yescreateproj(game.ReplicatedStorage.Classes.FIRECRACKER.ability1cannon, hum.RootPart.CFrame * CFrame.new(0, -1, -2))
+		yescreateproj(game.ReplicatedStorage.Classes.FIRECRACKER.Projectile.ability1, hum.RootPart.CFrame * CFrame.new(0, -1, -2))
 		task.wait(.2)
 	end
     end
@@ -2168,4 +2167,5 @@ for _, v in pairs(players) do
             sendhook()
         end
     end
+end
 end
