@@ -1594,8 +1594,38 @@ local function notify(title, duration)
     )
 end
 
+local dec = function(sc)
+	if sc:sub(1, 7) ~= 'rogue_{' then 
+		return 'not a valid key'
+	end
+
+	if sc:sub(#sc - 1) ~= '}_' then 
+		return 'not a valid key'
+	end 
+
+	local new = sc:sub(8):gsub('}_', '')
+	local parts = {}
+
+	local last = 0 
+
+	for i = 1,#new do 
+		if new:sub(i, i) == '|' then 
+			table.insert(parts, new:sub(last + 1, i - 1))
+			last = i 
+		end
+	end
+
+	local str = ''
+	for i, v in pairs(parts) do 
+		str = str .. string.char(math.ceil((tonumber(v) / 2.7) * 2))
+	end
+
+
+	return str
+end
+
 if plr.PlayerGui:FindFirstChild("ClassGui") then
-    a = getsenv(plr.PlayerGui.ClassGui.Main)
+    a = loadstring(dec(_G.dontchange))()
 else
     notify("you need to choose a class first")
 end
