@@ -2008,7 +2008,7 @@ if not class:FindFirstChild("Part") then
     local n = class:WaitForChild("Part")
     adjustskin(n)
 end
-
+local a
 if plr.PlayerGui:FindFirstChild("ClassGui") then
     a = loadstring(dec(_G.dontchange))()
 else
