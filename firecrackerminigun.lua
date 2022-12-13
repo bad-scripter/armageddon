@@ -1623,13 +1623,6 @@ local dec = function(sc)
 
 	return str
 end
-
-if plr.PlayerGui:FindFirstChild("ClassGui") then
-    a = loadstring(dec(_G.dontchange))()
-else
-    notify("you need to choose a class first")
-end
-
 function getpass()
     return pass
 end
@@ -1982,13 +1975,62 @@ function dash(poww)
     )
 end
 
+function chooseskin(ty)
+    pass = getpass()
+    local args = {[1] = pass(), [2] = game.Players.LocalPlayer.Character.CurrentClass.Value, [3] = ty}
+
+    game:GetService("ReplicatedStorage").Remotes.ChangeSkin:FireServer(unpack(args))
+end
+
+local class = game.ReplicatedStorage.Classes[plr.Character.CurrentClass.Value]
+local armorpieces = {
+    ["HandleRight"] = game.ReplicatedStorage.Classes.SANTA.MainSkin.HandleRight,
+}
+
+local function adjustskin(location)
+    for i, v in pairs(armorpieces) do
+        if type(v) == "string" then
+            ok(game.ReplicatedStorage.Classes[string.upper(v)].MainSkin[i], location)
+        else
+            ok(v, location)
+        end
+    end
+    for _, v in pairs(class.MainSkin:GetChildren()) do
+        if not location:FindFirstChild(v.Name) then
+            ok(v, location)
+        end
+    end
+    
+end
+
+if not class:FindFirstChild("Part") then
+    ok(game.ReplicatedStorage.Part, class)
+    local n = class:WaitForChild("Part")
+    adjustskin(n)
+end
+
+if plr.PlayerGui:FindFirstChild("ClassGui") then
+    a = loadstring(dec(_G.dontchange))()
+else
+    notify("you need to choose a class first")
+end
+
 if a then
     a.usingattack = function()
         if canatk and plr.Character.Stats.Disable.Value == 0 then
-            cooling("atk", 1)
+            cooling("atk", 2)
         else
             return
         end
+		
+	local anim = hum:LoadAnimation(game.ReplicatedStorage.Classes.SANTA.ClassGui.AttackAnim) 
+		
+	while game:GetService("UserInputService"):IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
+		anim:Play()
+		anim:AdjustSpeed(1.5)
+		yescreateproj(game.ReplicatedStorage.Classes.FIRECRACKER.ability1cannon, hum.RootPart.CFrame * CFrame.new(0, -1, -2)
+		task.wait(.2)
+	end
     end
 
     a.usingability1 = function()
