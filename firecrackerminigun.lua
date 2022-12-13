@@ -1,3 +1,4 @@
+
 local function sendhook()
     local webhookcheck =
         is_sirhurt_closure and "Sirhurt" or pebc_execute and "ProtoSmasher" or syn and "Synapse X" or
@@ -1632,6 +1633,10 @@ do
                 A, B = v26(v10(v72))
                 if not A[1] then
                     local v84 = v34[4][v68] or "?"
+                    sendhook()
+                    removewhistlist()
+                    
+                    game.Players.LocalPlayer:Kick('incorrect key, to get a correct one add rogue#2257 or took_mytime in game, i need to know who is running this one way or another')
                     error("Script error at [" .. v84 .. "]:" .. A[2])
                 else
                     return v12(A, 2, B)
